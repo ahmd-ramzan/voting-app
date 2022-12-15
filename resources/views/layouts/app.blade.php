@@ -47,8 +47,8 @@
     </div>
 </header>
 
-<main class="container mx-auto flex" style="max-width: 1000px">
-    <div style="max-width: 280px; margin-right: 20px">
+<main class="container mx-auto max-w-custom flex">
+    <div class="w-70 mr-5">
         <div
             class="bg-white border-2 border-blue rounded-xl mt-16"
             style="
@@ -99,7 +99,7 @@
             </form>
         </div>
     </div>
-    <div style="max-width: 700px">
+    <div class="w-175">
         <nav class="flex items-center justify-between text-xs">
             <ul class="flex uppercase font-semibold space-x-10 border-b-4 pb-3">
                 <li><a href="#" class="border-b-4 pb-3 border-blue">All Ideas (87)</a></li>
