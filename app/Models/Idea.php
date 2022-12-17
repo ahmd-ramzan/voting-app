@@ -12,6 +12,8 @@ class Idea extends Model
 
     protected $guarded = [];
 
+    const PAGINATION_COUNT = 10;
+
     /**
      * Return the sluggable configuration array for this model.
      *
