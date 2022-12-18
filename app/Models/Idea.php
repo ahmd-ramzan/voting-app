@@ -38,6 +38,11 @@ class Idea extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function votes()
+    {
+        return $this->belongsToMany(User::class, 'votes');
+    }
+
     public function status()
     {
         return $this->belongsTo(Status::class);

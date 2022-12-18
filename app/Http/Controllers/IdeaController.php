@@ -16,6 +16,7 @@ class IdeaController extends Controller
     {
         return view('ideas.index', [
             'ideas' => Idea::with(['user', 'category', 'status'])
+                ->withCount('votes')
                 ->latest('id')
                 ->simplePaginate(Idea::PAGINATION_COUNT)
         ]);
@@ -50,7 +51,8 @@ class IdeaController extends Controller
     public function show(Idea $idea)
     {
         return view('ideas.show', [
-            'idea' => $idea
+            'idea' => $idea,
+            'votesCount' => $idea->votes()->count()
         ]);
     }
 
