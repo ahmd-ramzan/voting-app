@@ -7,15 +7,15 @@
     class="idea-container hover:shadow-card transition duration-150 ease-in bg-white rounded-xl flex cursor-pointer">
     <div class="border-r border-gray-100 px-5 py-8">
         <div class="text-center">
-            <div class="font-semibold text-2xl @if($hasVoted) text-blue @endif">{{ $idea->votes_count }}</div>
+            <div class="font-semibold text-2xl @if($hasVoted) text-blue @endif">{{ $votesCount }}</div>
             <div class="text-gray-500">Votes</div>
         </div>
 
         <div class="mt-8">
             @if ($hasVoted)
-                <button class="w-20 bg-blue text-white border border-blue hover:bg-blue-hover font-bold text-xxs uppercase rounded-xl transition duration-150 ease-in px-4 py-3">Voted</button>
+                <button wire:click.prevent="vote" class="w-20 bg-blue text-white border border-blue hover:bg-blue-hover font-bold text-xxs uppercase rounded-xl transition duration-150 ease-in px-4 py-3">Voted</button>
             @else
-                <button class="w-20 bg-gray-200 border border-gray-200 hover:border-gray-400 font-bold text-xxs uppercase rounded-xl transition duration-150 ease-in px-4 py-3">Vote</button>
+                <button wire:click.prevent="vote" class="w-20 bg-gray-200 border border-gray-200 hover:border-gray-400 font-bold text-xxs uppercase rounded-xl transition duration-150 ease-in px-4 py-3">Vote</button>
             @endif
         </div>
     </div>

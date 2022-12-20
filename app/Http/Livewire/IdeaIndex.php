@@ -7,12 +7,30 @@ use Livewire\Component;
 
 class IdeaIndex extends Component
 {
-    public $idea, $hasVoted;
+    public $idea, $hasVoted, $votesCount;
 
-    public function mount(Idea $idea)
+    public function mount(Idea $idea, $votesCount)
     {
         $this->idea = $idea;
         $this->hasVoted = $idea->voted_by_user;
+        $this->votesCount = $votesCount;
+    }
+
+    public function vote()
+    {
+        if (!auth()->check()) {
+            return redirect(route('login'));
+        }
+
+        if ($this->hasVoted) {
+            $this->idea->removeVote(auth()->user());
+            $this->votesCount --;
+            $this->hasVoted = false;
+        } else {
+            $this->idea->vote(auth()->user());
+            $this->votesCount ++;
+            $this->hasVoted = true;
+        }
     }
 
     public function render()
