@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Exceptions\DuplicateVoteException;
+use App\Exceptions\VoteNotFoundException;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -61,6 +63,10 @@ class Idea extends Model
 
     public function vote(User $user)
     {
+        if ($this->isVotedByUser($user)) {
+            throw new DuplicateVoteException;
+        }
+
         Vote::create([
             'user_id' => $user->id,
             'idea_id' => $this->id
@@ -69,10 +75,15 @@ class Idea extends Model
 
     public function removeVote(User $user)
     {
-        Vote::where('user_id', $user->id)
+        $voteToDelete = Vote::where('user_id', $user->id)
             ->where('idea_id', $this->id)
-            ->first()
-            ->delete();
+            ->first();
+
+        if ($voteToDelete) {
+            $voteToDelete->delete();
+        } else {
+            throw new VoteNotFoundException;
+        }
     }
 
     public function getStatusClasses()
