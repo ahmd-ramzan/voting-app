@@ -12,13 +12,20 @@ module.exports = {
     theme: {
         extend: {
             colors: {
+                transparent: 'transparent',
+                current: 'currentColor',
+
+                black: colors.black,
+                white: colors.white,
                 gray: colors.trueGray,
-                'gray-background' : '#f7f8fc',
-                'blue' : '#328af1',
-                'blue-hover' : '#2879bd',
-                'yellow' : '#2879bd',
+                'gray-background': '#f7f8fc',
+                'blue': '#328af1',
+                'blue-hover': '#2879bd',
+                'yellow' : '#ffc73c',
                 'red' : '#ec454f',
-                'green' : '#1aab86',
+                'red-100' : '#fee2e2',
+                'green' : '#1aab8b',
+                'green-50': '#f0fdf4',
                 'purple' : '#8b60ed',
             },
             spacing: {
