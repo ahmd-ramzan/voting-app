@@ -16,7 +16,7 @@
 </head>
 <body class="font-sans bg-gray-background text-gray-900 text-sm">
 <header class="flex items-center justify-between px-8 py-4">
-    <a href="#">
+    <a href="/">
         <img class="h-10 w-10" src="{{ asset('img/logo.svg') }}" alt="logo">
     </a>
     <div class="flex items-center">
