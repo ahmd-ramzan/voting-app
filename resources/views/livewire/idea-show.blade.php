@@ -27,11 +27,16 @@
                     <div
                         x-data="{ isOpen: false }"
                         class="flex items-center space-x-2">
-                        <div class="{{ $idea->getStatusClasses() }} text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 py-2 px-4">{{ $idea->status->name }}</div>
+                        <div
+                            class="{{ $idea->getStatusClasses() }} text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 py-2 px-4">{{ $idea->status->name }}</div>
                         <button
                             @click="isOpen = !isOpen"
                             class="relative bg-gray-100 hover:bg-gray-200 border rounded-full h-7 transition duration-150 ease-in py-2 px-3">
-                            <svg fill="currentColor" width="24" height="6"><path d="M2.97.061A2.969 2.969 0 000 3.031 2.968 2.968 0 002.97 6a2.97 2.97 0 100-5.94zm9.184 0a2.97 2.97 0 100 5.939 2.97 2.97 0 100-5.939zm8.877 0a2.97 2.97 0 10-.003 5.94A2.97 2.97 0 0021.03.06z" style="color: rgba(163, 163, 163, .5)"></svg>
+                            <svg fill="currentColor" width="24" height="6">
+                                <path
+                                    d="M2.97.061A2.969 2.969 0 000 3.031 2.968 2.968 0 002.97 6a2.97 2.97 0 100-5.94zm9.184 0a2.97 2.97 0 100 5.939 2.97 2.97 0 100-5.939zm8.877 0a2.97 2.97 0 10-.003 5.94A2.97 2.97 0 0021.03.06z"
+                                    style="color: rgba(163, 163, 163, .5)">
+                            </svg>
                             <ul
                                 x-cloak
                                 x-show="isOpen"
@@ -43,11 +48,24 @@
                                     <li>
                                         <a
                                             @click="$dispatch('custom-show-edit-modal')"
-                                            href="#" class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Edit Idea</a>
+                                            href="#"
+                                            class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Edit
+                                            Idea</a>
                                     </li>
                                 @endcan
-                                <li><a href="#" class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Mark as Spam</a></li>
-                                <li><a href="#" class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Delete Idea</a></li>
+                                <li><a href="#"
+                                       class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Mark as
+                                        Spam</a></li>
+                                @can('delete', $idea)
+                                    <li>
+                                        <a
+                                            @click="$dispatch('custom-show-delete-modal')"
+                                            href="#"
+                                           class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Delete
+                                            Idea
+                                        </a>
+                                    </li>
+                                @endcan
                             </ul>
                         </button>
                     </div>
@@ -77,7 +95,9 @@
                     class="absolute z-10 w-104 text-left font-semibold text-sm bg-white shadow-dialog rounded-xl mt-2">
                     <form action="#" class="space-y-4 px-4 py-6">
                         <div>
-                            <textarea name="post_comment" id="post_comment" cols="30" rows="4" class="w-full text-sm bg-gray-100 rounded-xl border-none px-4 py-2" placeholder="Go ahead, don't by shy. Share your thoughts..."></textarea>
+                            <textarea name="post_comment" id="post_comment" cols="30" rows="4"
+                                      class="w-full text-sm bg-gray-100 rounded-xl border-none px-4 py-2"
+                                      placeholder="Go ahead, don't by shy. Share your thoughts..."></textarea>
                         </div>
 
                         <div class="flex items-center space-x-3">
@@ -91,8 +111,10 @@
                                 type="button"
                                 class="flex items-center justify-center w-32 h-11 text-xs bg-gray-200 font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3"
                             >
-                                <svg class="text-gray-600 w-4 transform -rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                                <svg class="text-gray-600 w-4 transform -rotate-45" fill="none" viewBox="0 0 24 24"
+                                     stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
                                 </svg>
                                 <span class="ml-1">Attach</span>
                             </button>
@@ -102,7 +124,7 @@
             </div>
             @auth
                 @if(auth()->user()->isAdmin())
-                    <livewire:set-status :idea="$idea" />
+                    <livewire:set-status :idea="$idea"/>
                 @endif
             @endauth
         </div>
@@ -114,13 +136,13 @@
             </div>
             @if ($hasVoted)
                 <button wire:click.prevent="vote"
-                    class="w-20 bg-blue text-white border border-blue font-bold text-xxs uppercase rounded-xl hover:bg-blue-hover transition duration-150 ease-in px-4 py-3 -mx-5"
+                        class="w-20 bg-blue text-white border border-blue font-bold text-xxs uppercase rounded-xl hover:bg-blue-hover transition duration-150 ease-in px-4 py-3 -mx-5"
                 >
                     Voted
                 </button>
             @else
                 <button wire:click.prevent="vote"
-                    class="w-20 bg-gray-200 border border-gray-200 font-bold text-xxs uppercase rounded-xl hover:border-gray-400 transition duration-150 ease-in px-4 py-3 -mx-5"
+                        class="w-20 bg-gray-200 border border-gray-200 font-bold text-xxs uppercase rounded-xl hover:border-gray-400 transition duration-150 ease-in px-4 py-3 -mx-5"
                 >
                     Vote
                 </button>
