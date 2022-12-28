@@ -11,7 +11,7 @@ class IdeaShow extends Component
 {
     public $idea, $votesCount, $hasVoted;
 
-    protected $listeners = ['statusWasUpdated', 'ideaWasUpdated', 'ideaWasMarkedAsSpam', 'ideaWasMarkedAsNotSpam'];
+    protected $listeners = ['statusWasUpdated', 'ideaWasUpdated', 'ideaWasMarkedAsSpam', 'ideaWasMarkedAsNotSpam', 'commentWasAdded'];
 
     public function mount(Idea $idea, $votesCount)
     {
@@ -66,5 +66,9 @@ class IdeaShow extends Component
     public function render()
     {
         return view('livewire.idea-show');
+    }
+    public function commentWasAdded()
+    {
+        $this->idea->refresh();
     }
 }
