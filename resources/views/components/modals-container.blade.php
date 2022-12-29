@@ -10,6 +10,10 @@
     <livewire:mark-idea-as-spam :idea="$idea" />
 @endauth
 
+@auth
+    <livewire:delete-comment />
+@endauth
+
 
 
 @admin
