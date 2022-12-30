@@ -23,28 +23,34 @@
         @if (Route::has('login'))
             <div class="px-6 py-4">
                 @auth
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <a href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
+                    <div class="flex items-center space-x-4">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                            {{ __('Log Out') }}
+                                {{ __('Log Out') }}
+                            </a>
+                        </form>
+                        <livewire:comment-notifications />
+                        <a href="#">
+                            <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp" alt="avatar"
+                                 class="w-10 h-10 rounded-full">
                         </a>
-                    </form>
-                @else
-                    <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+                    </div>
+                    <div>
+                        @else
+                            <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log
+                                in</a>
 
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}"
-                           class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                    @endif
-                @endauth
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}"
+                                   class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                            @endif
+                        @endauth
+                    </div>
+                @endif
             </div>
-        @endif
-        <a href="#">
-            <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp" alt="avatar"
-                 class="w-10 h-10 rounded-full">
-        </a>
     </div>
 </header>
 
@@ -72,7 +78,7 @@
             </div>
 
             @auth()
-                <livewire:create-idea />
+                <livewire:create-idea/>
             @else
                 <div class="my-6 text-center">
                     <a
@@ -93,7 +99,7 @@
         </div>
     </div>
     <div class="w-175">
-        <livewire:status-filters />
+        <livewire:status-filters/>
         <div class="mt-8">
             {{ $slot }}
         </div>
