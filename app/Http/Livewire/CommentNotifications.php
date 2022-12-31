@@ -31,6 +31,13 @@ class CommentNotifications extends Component
         $this->isLoading = false;
     }
 
+    public function markAllAsRead()
+    {
+        auth()->user()->unreadNotifications->markAsRead();
+        $this->getNotificationsCount();
+        $this->getNotifications();
+    }
+
     public function render()
     {
         return view('livewire.comment-notifications');
