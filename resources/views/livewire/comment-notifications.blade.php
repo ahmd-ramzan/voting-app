@@ -12,7 +12,7 @@
         </svg>
         <div
             class="absolute rounded-full bg-red text-white text-xxs w-6 h-6 flex justify-center items-center border-2 -top-1 -right-1">
-            8
+            {{ $notificationCount }}
         </div>
     </button>
     <ul
@@ -23,32 +23,49 @@
         @click.away="isOpen = false"
         @keydown.escape.window="isOpen = false"
     >
-        @foreach($notifications as $notification)
-            <li>
-                <a
-                    href="{{ route('idea.show', $notification->data['idea_slug']) }}"
-                    {{--@click.prevent="isOpen = false"--}}
-                    class="flex hover:bg-gray-100 transition duration-150 ease-in px-5 py-3"
-                >
-                    <img src="{{ $notification->data['user_avatar'] }}"
-                         class="rounded-xl w-10 h-10" alt="avatar">
-                    <div class="ml-4">
-                        <div class="line-clamp-6">
-                            <span class="font-semibold">{{ $notification->data['user_name'] }}</span> commented on
-                            <span class="font-semibold">{{ $notification->data['idea_title'] }}</span>:
-                            <span>"{{ $notification->data['comment_body'] }}"</span>
+        @if($notifications->isNotEmpty() && ! $isLoading)
+            @foreach($notifications as $notification)
+                <li>
+                    <a
+                        href="{{ route('idea.show', $notification->data['idea_slug']) }}"
+                        {{--@click.prevent="isOpen = false"--}}
+                        class="flex hover:bg-gray-100 transition duration-150 ease-in px-5 py-3"
+                    >
+                        <img src="{{ $notification->data['user_avatar'] }}"
+                             class="rounded-xl w-10 h-10" alt="avatar">
+                        <div class="ml-4">
+                            <div class="line-clamp-6">
+                                <span class="font-semibold">{{ $notification->data['user_name'] }}</span> commented on
+                                <span class="font-semibold">{{ $notification->data['idea_title'] }}</span>:
+                                <span>"{{ $notification->data['comment_body'] }}"</span>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-2">{{ $notification->created_at->diffForHumans() }}</div>
                         </div>
-                        <div class="text-xs text-gray-500 mt-2">{{ $notification->created_at->diffForHumans() }}</div>
+                    </a>
+                </li>
+            @endforeach
+                <li class="border-t border-gray-300 text-center">
+                    <button
+                        class="w-full block font-semibold hover:bg-gray-100 transition duration-150 ease-in px-5 py-4"
+                    >
+                        Mark all as read
+                    </button>
+                </li>
+        @elseif($isLoading)
+            @foreach (range(1,3) as $item)
+                <li class="animate-pulse flex items-center transition duration-150 ease-in px-5 py-3">
+                    <div class="bg-gray-200 rounded-xl w-10 h-10"></div>
+                    <div class="flex-1 ml-4 space-y-2">
+                        <div class="bg-gray-200 w-full rounded h-4"></div>
+                        <div class="bg-gray-200 w-full rounded h-4"></div>
+                        <div class="bg-gray-200 w-1/2 rounded h-4"></div>
                     </div>
-                </a>
+                </li>
+            @endforeach
+        @else
+            <li class="mx-auto w-40 py-6">
+                <div class="text-gray-400 text-center font-bold mt-6">No new notifications</div>
             </li>
-        @endforeach
-        <li class="border-t border-gray-300 text-center">
-            <button
-                class="w-full block font-semibold hover:bg-gray-100 transition duration-150 ease-in px-5 py-4"
-            >
-                Mark all as read
-            </button>
-        </li>
+        @endif
     </ul>
 </div>
